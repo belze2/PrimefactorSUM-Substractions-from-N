@@ -41,19 +41,26 @@ for k, f in enumerate(SUMSF):
 summe = 1
 Li = L3 # liste zu interieren ist aufsteigend in ERGEBNISSE[LEnum - 1]
 while summe != 0: #
+    sumcounter = 0
     ERGEBNISSE[LEnum] = []
     for k, item in enumerate(Li):
-        if item == 1: ERGEBNISSE[LEnum].append(0)
+        if item == 1:ERGEBNISSE[LEnum].append(0)
         elif item == 0: ERGEBNISSE[LEnum].append(0)
-        else: ERGEBNISSE[LEnum].append(findSUM(Nx, SUMSF, item))
-    summe = sum(ERGEBNISSE[LEnum])
+        else:
+            new = findSUM(Nx, SUMSF, item)
+            ERGEBNISSE[LEnum].append(new)
+            sumcounter += new
+
+    summe = sumcounter
     Li = ERGEBNISSE[LEnum]
     if 0 <= summe <= 15: break
     LEnum += 1
 
+import pickle
+
+with open('file.txt', 'wb') as file:
+     file.write(pickle.dumps(ERGEBNISSE))
+
 print('Die Summe der letzten Ergebnisse liegt zwischen 0 und 15')
 print('Anzahl der Durchläufe SUMME gegen Null:', LEnum)
-
-
-        
 
